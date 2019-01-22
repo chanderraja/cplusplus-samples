@@ -1,10 +1,9 @@
-//============================================================================
-// Name        : rom2int.cpp
-// Author      : Chander Raja
-// Version     :
-// Copyright   : 
-// Description : Convert a Roman Number to an integer
-//============================================================================
+/** @file roman2int.cpp
+ *  @brief Convert a Roman Number to an integer 
+ *
+ *  @author Chander Raja (chanderraja)
+ *  @bug No known bugs.
+ */
 
 #include <cstdint>
 #include <iostream>
