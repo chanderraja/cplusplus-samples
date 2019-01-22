@@ -6,7 +6,6 @@
  *  two numbers is also returned as a string.
  *
  *  @author Chander Raja (chanderraja)
- *  @author Fred Hacker (fhacker)
  *  @bug No known bugs.
  */
 
