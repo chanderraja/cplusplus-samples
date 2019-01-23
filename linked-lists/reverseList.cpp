@@ -13,7 +13,7 @@ SListNode* reverseList(SListNode* head) {
     SListNode* nextNode = head->next;
     head->next = nullptr;
     while (nextNode) {
-        ListNode* temp = nextNode->next;
+        SListNode* temp = nextNode->next;
         nextNode->next = prevNode;
         prevNode = nextNode;
         nextNode = temp;
