@@ -14,12 +14,27 @@ using namespace mycorp;
 /// \return exit code
 int main (int argc, char *argv[])
 {
-    Matrix<double, 20, 3> m1;
-    Matrix<double, 3, 32> m2;
+    Matrix<double, 2, 2> m1({0.1, 0.2, 0.3, 0.4});
+    Matrix<double, 2, 2> m2({1., 2., 3., 4.});
+
 
     auto * prod = m1 * m2;
 
-    printf("rows = %d cols = %d\n", prod->rows(), prod->columns());
+    Matrix<double, 2, 2> expected({0.7, 1.0, 1.5, 2.2});
+
+    if (*prod == expected) {
+        printf("test passed\n");
+    }
+
+    for (unsigned int row = 0; row < prod->rows(); ++row) {
+        for (unsigned int col = 0; col < prod->columns(); ++col) {
+            printf("%lf ", (*prod)[{row, col}]);
+        }
+        printf("\n");
+    }
+
+
+    delete prod;
 
     return 0;
 }
