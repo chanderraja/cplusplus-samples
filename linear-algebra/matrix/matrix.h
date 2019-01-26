@@ -26,7 +26,7 @@ namespace mycorp {
 template<typename T, unsigned int M, unsigned int N>
 class Matrix {
 
-    std::array<std::array<T, M>, N> m_elem;
+    std::array<std::array<T, N>, M> m_elem;
 
 public:
 
@@ -38,7 +38,7 @@ public:
 
     /// \brief copy constructor
     /// \param initializer
-    Matrix(const std::array<std::array<T, M>, N>& initializer)
+    explicit  Matrix(const std::array<std::array<T, N>, M>& initializer)
         : m_elem(initializer)
     {
     }
@@ -93,7 +93,6 @@ public:
     template<typename U = T>
     typename std::enable_if<std::is_floating_point<U>::value, bool>::type operator==(const Matrix& b) const
     {
-        printf("is floating point\n");
         for (unsigned int row = 0; row < M; ++row) {
             for (unsigned int col = 0; col < N; ++col) {
                 T x = m_elem[row][col];
@@ -116,7 +115,7 @@ public:
 
 
 
-
+/// \brief function to perform matrix multiplication
 /// \tparam T data type of the operand and product matrices
 /// \tparam M number of rows of operand 1 and product matrices
 /// \tparam L number of columns in operand 1 matrix and number of rows in operand 2 matrix
@@ -138,6 +137,28 @@ Matrix<T, M, N>* operator*(const Matrix<T, M, L>& a, const Matrix<T, L, N>& b)
     }
 
     return prod;
+
+}
+
+/// \brief function to perform matrix transpose operation
+/// \tparam T data type of the operand and product matrices
+/// \tparam M number of rows of operand 1 and product matrices
+/// \tparam L number of columns in operand 1 matrix and number of rows in operand 2 matrix
+/// \tparam N number of columns in operand 2 and product matrices
+/// \param a matrix to be transposed
+/// \return pointer to a newly allocated NxM matrix containing the transpose of matrix a
+template<typename T, unsigned int M, unsigned int N>
+Matrix<T, N, M>* transposeMatrix(const Matrix<T, M, N>& a)
+{
+    auto* transposed = new Matrix<T, N, M>;
+
+    for (unsigned int row = 0; row < M; ++row) {
+        for (unsigned int col = 0; col < N; ++col) {
+            (*transposed)[{col, row}] = a[{row, col}];
+        }
+    }
+
+    return transposed;
 
 }
 

@@ -19,6 +19,7 @@ namespace mycorp {
 /// \return exit code
 int main (int argc, char *argv[])
 {
+
     Matrix<float, 2, 2> m1({0.1, 0.2, 0.3, 0.4});
     Matrix<float, 2, 2> m2({1., 2., 3., 4.});
 
@@ -35,11 +36,15 @@ int main (int argc, char *argv[])
     cout << *prod;
     cout << "expected = " << endl;
     cout << expected;
+    delete prod;
 
-    Matrix<int, 2, 2> mi1({-1, 2, -3, 4});
-    Matrix<int, 2, 2> mi2({5, -6, 7, -8});
 
-    Matrix<int, 2, 2> mi_exp({9, -10, 13, -14});
+    Matrix<int, 2, 4> mi1({1, 4, 6, 10, 2, 7, 5, 3});
+
+    Matrix<int, 4, 3> mi2({1, 4, 6, 2, 7, 5, 9, 0, 11, 3, 1, 0});
+
+    Matrix<int, 2, 3> mi_exp({93, 42, 92, 70, 60, 102});
+
 
     auto * prod2 = mi1 * mi2;
 
@@ -51,10 +56,16 @@ int main (int argc, char *argv[])
     cout << *prod2;
     cout << "expected = " << endl;
     cout << mi_exp;
-
-
     delete prod2;
-    delete prod;
+
+
+    cout << "mi1[" << mi1.rows() << "," << mi1.columns() << "] = " << endl;
+    cout << mi1 << endl;
+    auto *transposed = transposeMatrix(mi1);
+    cout << "transposed mi1 = " << endl;
+    cout << *transposed;
+
+
 
     return 0;
 }
