@@ -8,11 +8,16 @@
 #define __MATRIX_H__
 
 #include <cstring>
+#include <cmath>
 #include <array>
 #include <stdexcept>
+#include <iostream>
+#include <algorithm>
+#include <type_traits>
 
 
 namespace mycorp {
+
 
 ///
 /// \tparam T matrix data type (int, float, double etc)
@@ -20,18 +25,7 @@ namespace mycorp {
 /// \tparam N number of columns in matrix
 template<typename T, unsigned int M, unsigned int N>
 class Matrix {
-    /*
-public:
-    class _proxy
-    {
-        std::array<T, N> m_column;
-    public:
-        std::array<T, N>& operator[](int j) { return m_column.at[j]; } // use at() since it throws out of bound exception
 
-    };
-     */
-
-private:
     std::array<std::array<T, M>, N> m_elem;
 
 public:
@@ -78,9 +72,51 @@ public:
         return m_elem.at(a.first).at(a.second); // use at() instead of [] because it throws out of bound exception
     }
 
+    /// \brief equal-to comparison operator for floating point types
+    /// \param b other matrix to comapre with
+    /// \return true if equal to other matrix, false otherwise
+    template<typename U = T>
+    typename std::enable_if<std::is_integral<U>::value, bool>::type operator==(const Matrix& b) const
+    {
+        printf("is integer\n");
+        for (unsigned int row = 0; row < M; ++row) {
+            for (unsigned int col = 0; col < N; ++col) {
+                if (m_elem[row][col] != b.m_elem[row][col]) return false;
+            }
+        }
+        return true;
+    }
+
+    /// \brief equal-to comparison operator for floating point types
+    /// \param b other matrix to comapre with
+    /// \return true if equal to other matrix, false otherwise
+    template<typename U = T>
+    typename std::enable_if<std::is_floating_point<U>::value, bool>::type operator==(const Matrix& b) const
+    {
+        printf("is floating point\n");
+        for (unsigned int row = 0; row < M; ++row) {
+            for (unsigned int col = 0; col < N; ++col) {
+                T x = m_elem[row][col];
+                T y = b.m_elem[row][col];
+                T epsilon_factor = std::fmax(std::fabs(x), std::fabs(y));
+                bool almost_equal = (std::fabs(x - y) <= std::numeric_limits<T>::epsilon()*epsilon_factor);
+                if (!almost_equal) return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// \brief not-equal-to comparison operator
+    /// \param b other matrix to comapre with
+    /// \return true if not equal to other matrix, false otherwise
+    bool operator!=(const Matrix& b) const { return !(*this==b); }
+
 };
 
-///
+
+
+
 /// \tparam T data type of the operand and product matrices
 /// \tparam M number of rows of operand 1 and product matrices
 /// \tparam L number of columns in operand 1 matrix and number of rows in operand 2 matrix
@@ -106,24 +142,24 @@ Matrix<T, M, N>* operator*(const Matrix<T, M, L>& a, const Matrix<T, L, N>& b)
 }
 
 
-/// \brief Comparison operator
-/// \tparam T data type of the operand and product matrices
-/// \tparam M number of rows of operand 1 and product matrices
-/// \tparam L number of columns in operand 1 matrix and number of rows in operand 2 matrix
-/// \tparam N number of columns in operand 2 and product matrices
-/// \param a first operand matrix
-/// \param b second operand matrix
-/// \return pointer to a newly allocated MxN matrix containing the product of a and b
+///
+/// \tparam T
+/// \tparam M
+/// \tparam N
+/// \param stream
+/// \param matrix
+/// \return
 template<typename T, unsigned int M, unsigned int N>
-Matrix<T, M, N>* operator==(const Matrix<T, M, N>& a, const Matrix<T, M, N>& b)
-{
+std::ostream& operator<<(std::ostream& os, const Matrix<T, M, N>& m) {
     for (unsigned int row = 0; row < M; ++row) {
         for (unsigned int col = 0; col < N; ++col) {
-            if (a[{row, col}] != b[{row, col}]) return false;
+            os << m[{row, col}] << "\t";
         }
+        os << std::endl;
     }
 
-    return true;
+    return os;
+
 }
 
 } // namespace mycorp
