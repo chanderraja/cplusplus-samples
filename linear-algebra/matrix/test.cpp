@@ -6,10 +6,10 @@
 #include <iostream>
 #include "matrix.h"
 
-using namespace mycorp;
+using namespace LinearAlgebraLib;
 using namespace std;
 
-namespace mycorp {
+namespace LinearAlgebraLib {
 
 }
 

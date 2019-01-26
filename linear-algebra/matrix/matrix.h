@@ -16,7 +16,7 @@
 #include <type_traits>
 
 
-namespace mycorp {
+namespace LinearAlgebraLib {
 
 
 ///
@@ -183,6 +183,6 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T, M, N>& m) {
 
 }
 
-} // namespace mycorp
+} // namespace LinearAlgebraLib
 
 #endif //__MATRIX_H__
