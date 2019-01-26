@@ -9,10 +9,6 @@
 using namespace LinearAlgebraLib;
 using namespace std;
 
-namespace LinearAlgebraLib {
-
-}
-
 ///
 /// \param argc count of arguments
 /// \param argv array of arguments
@@ -61,7 +57,7 @@ int main (int argc, char *argv[])
 
     cout << "mi1[" << mi1.rows() << "," << mi1.columns() << "] = " << endl;
     cout << mi1 << endl;
-    auto *transposed = transposeMatrix(mi1);
+    auto *transposed = mi1.transpose();
     cout << "transposed mi1 = " << endl;
     cout << *transposed;
 
