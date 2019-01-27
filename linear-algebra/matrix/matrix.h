@@ -1,8 +1,10 @@
-//
-// Created by Chander Raja on 2019-01-24.
-//
 ///
-
+///
+/// \file
+/// Declaration of a templatized matrix class
+///
+/// \author Chander Raja
+///
 
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
@@ -20,7 +22,8 @@ namespace LinearAlgebraLib {
 
 /// \class Matrix<T,M,N>
 ///
-/// \brief A template class representing a MxN matrix whose member elements can be integral or floating point
+/// \brief A template class representing a MxN matrix whose member elements can be integral or floating point.
+/// Note that the methods of this class are not thread safe.
 ///
 /// \author Chander Raja
 ///

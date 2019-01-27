@@ -1,7 +1,7 @@
 Class LinearAlgebraLib::Matrix<T, M, N>
 ========================================
 A C++ template class representing a MxN matrix with integral or floating point members. 
-The member type is specified by the template parameter T.
+The member type is specified by the template parameter T. This class is not thread safe.
 Currently, the only matrix operations implemented are matrix multiplication and transposition.
 A unit test application is provided as source code in the file test.cpp. A CMakeLists.txt file is provided
 to allow building the unit test using cmake. 
