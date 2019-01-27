@@ -16,12 +16,6 @@ using namespace std;
 int main (int argc, char *argv[])
 {
 
-    std::array<float, 5> a{};
-
-    for (size_t i = 0; i < a.size(); ++i) {
-        printf("a[%zu] = %f\n", i, a[i]);
-    }
-
     Matrix<float, 2, 2> m1({0.1, 0.2, 0.3, 0.4});
     Matrix<float, 2, 2> m2({1., 2., 3., 4.});
 
