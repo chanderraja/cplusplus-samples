@@ -18,7 +18,11 @@
 
 namespace LinearAlgebraLib {
 
-
+/// \class Matrix<T,M,N>
+///
+/// \brief A template class representing a MxN matrix whose member elements can be integral or floating point
+///
+/// \author Chander Raja
 ///
 /// \tparam T matrix data type (int, float, double etc)
 /// \tparam M number of rows in matrix
@@ -30,22 +34,19 @@ class Matrix {
 
 public:
 
-    /// \brief default constructor
-    Matrix()
-        : m_elem({})
-    {
-    }
+    /// \brief default constructor. Elements are zeroed out during initialization
+    Matrix(): m_elem{} {}
 
-    /// \brief copy constructor
+    /// \brief copy constructor -  example usage: Matrix<int, 2, 2> m{ 1, 2, -3, -4 };
     /// \param initializer
     explicit  Matrix(const std::array<std::array<T, N>, M>& initializer)
         : m_elem(initializer)
     {
     }
 
-    /// \brief assignment operator
+    /// \brief assignment operator - example usage: Matrix<int, 2, 2> m = { 1, 2, -3, -4 };
     /// \param initializer
-    /// \return
+    /// \return reference to this matrix
     Matrix& operator=(const std::array<std::array<T, M>, N>& initializer) { m_elem = initializer;  return *this; }
 
     /// \return the number of rows in the matrix
@@ -54,41 +55,37 @@ public:
     /// \return the number of columns in the matrix
     size_t columns() const { return N; }
 
-    /// \brief index operator
+    /// \brief non-const index operator overload for write access to matrix elements - usage is m[{row, column}] = value;
     /// \param a pair of row and column indices into the matrix. if indices are out of bounds,
     /// an out of bound exception is thrown
     /// \return a non-const reference to an element in the matrix
+    /// \throws std::out_of_range if either index is out of range
     T& operator[] (const std::pair<size_t, size_t>& a)
     {
         return m_elem.at(a.first).at(a.second); // use at() instead of [] because it throws out of bound exception
     }
 
-    /// \brief index operator
+    /// \brief const index operator overload for read only access to matrix elements- usage is m[{row, column}]
     /// \param a pair of row and column indices into the matrix. if indices are out of bounds,
     /// an out of bound exception is thrown
     /// \return a const reference to an element in the matrix
+    /// \throws std::out_of_range if either index is out of range
     const T& operator[] (const std::pair<size_t, size_t>& a) const
     {
         return m_elem.at(a.first).at(a.second); // use at() instead of [] because it throws out of bound exception
     }
 
-    /// \brief equal-to comparison operator for floating point types
-    /// \param b other matrix to comapre with
+    /// \brief equal-to comparison operator overload for integral types
+    /// \param b other matrix to compare with
     /// \return true if equal to other matrix, false otherwise
     template<typename U = T>
     typename std::enable_if<std::is_integral<U>::value, bool>::type operator==(const Matrix& b) const
     {
-        printf("is integer\n");
-        for (size_t row = 0; row < M; ++row) {
-            for (size_t col = 0; col < N; ++col) {
-                if (m_elem[row][col] != b.m_elem[row][col]) return false;
-            }
-        }
-        return true;
+        return (m_elem == b.m_elem);
     }
 
-    /// \brief equal-to comparison operator for floating point types
-    /// \param b other matrix to comapre with
+    /// \brief equal-to comparison operator overload for floating point types
+    /// \param b other matrix to compare with
     /// \return true if equal to other matrix, false otherwise
     template<typename U = T>
     typename std::enable_if<std::is_floating_point<U>::value, bool>::type operator==(const Matrix& b) const
@@ -107,16 +104,15 @@ public:
     }
 
     /// \brief not-equal-to comparison operator
-    /// \param b other matrix to comapre with
+    /// \param b other matrix to compare with
     /// \return true if not equal to other matrix, false otherwise
     bool operator!=(const Matrix& b) const { return !(*this==b); }
 
 
-
-
-    /// \brief method to perform matrix multiplication with a NxL matrix
+    /// \brief This method perform matrix multiplication with a NxL matrix. The result will be a newly allocated
+    /// MxN matrix containing the product of the matrix multiplication
     /// \tparam L number of columns in other operand matrix and product matrix
-    /// \param b other operand matrix
+    /// \param b second operand in the matrix multiplication
     /// \return pointer to a newly allocated MxL matrix containing the product of this matrix and b
     template<size_t L>
     Matrix<T, M, L>* operator*(const Matrix<T, N, L>& b)
@@ -127,7 +123,7 @@ public:
             for (size_t col = 0; col < L; ++col) {
                 for (size_t i = 0; i < N; ++i) {
                     (*prod)[{row, col}] += (m_elem[row][i] * b[{i, col}]);
-                }
+                 }
             }
         }
 
@@ -136,8 +132,8 @@ public:
     }
 
 
-    /// \brief method to perform matrix transpose operation
-    /// \return pointer to a newly allocated NxM matrix containing the transpose of this matrix
+    /// \brief This method returns a NxM matrix that is the transpose of this matrix
+    /// \return pointer to a newly allocated NxM matrix containing the transpose data from this matrix
     Matrix<T, N, M>* transpose()
     {
         auto* transposed = new Matrix<T, N, M>;
@@ -155,24 +151,24 @@ public:
 };
 
 
-///
-/// \tparam T
-/// \tparam M
-/// \tparam N
-/// \param stream
-/// \param matrix
+
+/// \brief Overloading of operator<< to dump the matrix contents to an output stream
+/// \tparam T matrix element value type
+/// \tparam M number of matrix rows
+/// \tparam N number of matrix columns
+/// \param os reference to output steam
+/// \param m MxN matrix containing elements of type T
 /// \return
 template<typename T, size_t M, size_t N>
-std::ostream& operator<<(std::ostream& os, const Matrix<T, M, N>& m) {
+std::ostream& operator<<(std::ostream& os, const Matrix<T, M, N>& m)
+{
     for (size_t row = 0; row < M; ++row) {
         for (size_t col = 0; col < N; ++col) {
             os << m[{row, col}] << "\t";
         }
         os << std::endl;
     }
-
     return os;
-
 }
 
 } // namespace LinearAlgebraLib

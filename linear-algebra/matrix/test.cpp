@@ -16,6 +16,12 @@ using namespace std;
 int main (int argc, char *argv[])
 {
 
+    std::array<float, 5> a{};
+
+    for (size_t i = 0; i < a.size(); ++i) {
+        printf("a[%zu] = %f\n", i, a[i]);
+    }
+
     Matrix<float, 2, 2> m1({0.1, 0.2, 0.3, 0.4});
     Matrix<float, 2, 2> m2({1., 2., 3., 4.});
 
@@ -41,6 +47,10 @@ int main (int argc, char *argv[])
 
     Matrix<int, 2, 3> mi_exp({93, 42, 92, 70, 60, 102});
 
+    cout << "mi1[" << mi1.rows() << "," << mi1.columns() << "] = " << endl;
+    cout << mi1 << endl;
+    cout << "mi2[" << mi2.rows() << "," << mi2.columns() << "] = " << endl;
+    cout << mi2 << endl;
 
     auto * prod2 = mi1 * mi2;
 
@@ -55,8 +65,6 @@ int main (int argc, char *argv[])
     delete prod2;
 
 
-    cout << "mi1[" << mi1.rows() << "," << mi1.columns() << "] = " << endl;
-    cout << mi1 << endl;
     auto *transposed = mi1.transpose();
     cout << "transposed mi1 = " << endl;
     cout << *transposed;
