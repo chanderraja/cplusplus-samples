@@ -32,18 +32,28 @@ namespace LinearAlgebraLib {
 template<typename T, size_t M, size_t N>
 class Matrix {
 
-    std::array<std::array<T, N>, M> m_elem;
+    std::array<std::array<T, N>, M> *m_matrix;
+    std::array<std::array<T, N>, M>& m_elem;
 
 public:
 
     /// \brief default constructor. Elements are zeroed out during initialization
-    Matrix(): m_elem{} {}
+    Matrix()
+        : m_matrix(new std::array<std::array<T, N>, M>({}))
+        , m_elem(*m_matrix)
+        {}
 
-    /// \brief copy constructor -  example usage: Matrix<int, 2, 2> m{ 1, 2, -3, -4 };
-    /// \param initializer
+    /// \brief constructor with array initializer -  example usage: Matrix<int, 2, 2> m{ 1, 2, -3, -4 };
+    /// \param initializer 2D array with values to initialize matrix from
     explicit  Matrix(const std::array<std::array<T, N>, M>& initializer)
-        : m_elem(initializer)
+        : m_matrix(new std::array<std::array<T, N>, M>(initializer))
+        , m_elem(*m_matrix)
     {
+    }
+
+    ~Matrix()
+    {
+        delete m_matrix;
     }
 
     /// \brief assignment operator - example usage: Matrix<int, 2, 2> m = { 1, 2, -3, -4 };
