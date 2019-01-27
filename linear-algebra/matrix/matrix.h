@@ -1,5 +1,4 @@
 ///
-///
 /// \file
 /// Declaration of a templatized matrix class
 ///
