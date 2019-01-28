@@ -34,7 +34,7 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(test test.cpp)
+add_executable(matrix_test matrix_test.cpp)
 SET(CMAKE_CXX_FLAGS "-std=c++11")
-target_link_libraries(test gtest_main)
+target_link_libraries(matrix_test gtest_main)
 #add_test(NAME example_test COMMAND example)

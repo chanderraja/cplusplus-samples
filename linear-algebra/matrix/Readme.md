@@ -46,6 +46,12 @@ How to build the unit test
 --------------------------
 To build and run the included unit test:
 	
-	> cmake
+	> cmake .
 	> make
 	> ./test
+	
+How to generate the class documentation
+---------------------------------------
+To generate HTML documentation for the Matrix class and methods:
+
+    > doxygen
