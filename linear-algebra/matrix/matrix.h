@@ -1,6 +1,6 @@
 ///
 /// \file
-/// Declaration of a templatized matrix class
+/// Implementation of a templatized matrix class
 ///
 /// \author Chander Raja
 ///

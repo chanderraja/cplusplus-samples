@@ -19,6 +19,7 @@ All examples below assume that the following declaration is used.
     Matrix<int, 4, 3> m3({1, 4, 6, -2, 7, 5, 9, 0, -11, 3, 1, 0});
 
 ####  Multiplication
+
     Matrix<int, 2, 4> m1({1, 4, 6, 10, 2, 7, 5, 3});
     Matrix<int, 4, 3> m2({1, 4, 6, 2, 7, 5, 9, 0, 11, 3, 1, 0});
     
@@ -38,6 +39,7 @@ For example, the following code snippet will result in a compiler error:
     auto *prod = m1 * m2;
 
 ####  Transposition
+
     Matrix<int, 2, 4> m({1, 4, 6, 10, 2, 7, 5, 3});
 
     Matrix<int, 4, 2> *mt = m.transpose();
