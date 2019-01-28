@@ -48,7 +48,7 @@ To build and run the included unit test:
 	
 	> cmake .
 	> make
-	> ./test
+	> ./matrix_test
 	
 How to generate the class documentation
 ---------------------------------------
