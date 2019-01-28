@@ -8,10 +8,8 @@
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
-#include <cstring>
 #include <cmath>
 #include <array>
-#include <stdexcept>
 #include <iostream>
 #include <algorithm>
 #include <type_traits>
@@ -23,8 +21,6 @@ namespace LinearAlgebraLib {
 ///
 /// \brief A template class representing a MxN matrix whose member elements can be integral or floating point.
 /// Note that the methods of this class are not thread safe.
-///
-/// \author Chander Raja
 ///
 /// \tparam T matrix data type (int, float, double etc)
 /// \tparam M number of rows in matrix
