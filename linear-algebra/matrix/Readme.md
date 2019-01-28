@@ -46,12 +46,23 @@ For example, the following code snippet will result in a compiler error:
 
 How to build the unit test
 --------------------------
-To build and run the included unit test:
+To build and run the included GoogleTest based unit tests:
 	
 	> cmake .
 	> make
 	> ./matrix_test
 	
+NOTE: GoogleTest requires cmake 3.0 or greater. On a system like Centos 7,
+which has an older version installed, cmake might return an error. In that case,
+please upgrade to cmake 3.x and try again.
+
+On a Centos 7 system, for example, you may have to do the following:
+    
+    > sudo yum install cmake3
+    > cmake3 .
+    > make
+    > ./matrix_test
+    
 How to generate the class documentation
 ---------------------------------------
 To generate HTML documentation for the Matrix class and methods:
