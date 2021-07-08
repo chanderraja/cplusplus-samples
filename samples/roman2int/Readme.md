@@ -8,9 +8,11 @@ Usage
 
 E.g. 
 *roman2int MCD*
+
 1400
 
 *roman2int MCMLXXXIV*
+
 1984
 
 *roman2int foo*
